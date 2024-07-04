@@ -13,7 +13,7 @@
 <h1 align="center"> IIHT Technologies- Very Good Training center for DevOps with AWS,Python & AWS Solution Architect & Terraform in Bangalore India.Teaching Real Time scnerios</h1>
 <hr>
 <br>
-	<h1><h3> Server Side IP Address </h3><br>
+	<h1><h3> welcome to devopsclass </h3><br>
 
 <% 
 String ip = "";
