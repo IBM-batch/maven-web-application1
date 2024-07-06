@@ -1,0 +1,32 @@
+node {
+    def mavenHome = tool name: 'maven'
+
+    // def mavenHome=tool name :'maven'
+    stage ('checkoutcode')
+    {
+     git credentialsId: '00aa5342-920b-42b7-bcb4-04b346e401de', url: 'https://github.com/IBM-batch/maven-web-application1.git'   
+    } //checkoutclosing
+    stage ('builda package')
+    {
+        sh "${mavenHome}/bin/mvn clean package"
+    } //buildclosing
+    stage ('sonarqube')
+    {
+     sh "${mavenHome}/bin/mvn sonar:sonar"   
+        
+    }//sonarstageclosing
+    stage ('store artifact')
+    {
+      sh "${mavenHome}/bin/mvn clean deploy"  
+    } //nexusclosing
+    stage ('deploying')
+    {
+       sshagent(['263f316a-db45-425b-b514-455eb13b0a7b']) {
+    // some block
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.11.140:/opt/apache-tomcat-9.0.89/webapps/"   
+  }
+  
+} 
+        
+    } //tomcatstage
+    
